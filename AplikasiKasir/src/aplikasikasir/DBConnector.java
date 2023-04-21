@@ -4,6 +4,7 @@
  */
 package aplikasikasir;
 //testign add
+//test 2
 import java.sql.Connection;
 import java.sql.DriverManager;
 
