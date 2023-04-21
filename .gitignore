@@ -6,4 +6,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-AplikasiKasir/src/aplikasikasir/DBConnector.java
+**/src/aplikasikasir/DBConnector.java
