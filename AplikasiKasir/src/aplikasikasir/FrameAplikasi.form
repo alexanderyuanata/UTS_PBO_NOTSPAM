@@ -85,28 +85,23 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Component id="panel_tabel" pref="684" max="32767" attributes="0"/>
+                      <Component id="panel_tabel" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="labelTotalBelanja" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="fieldtotalbelanja" min="-2" pref="253" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="labelJlhPembayaran" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="fieldpembayaran" min="-2" pref="253" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="labelKembalian" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="fieldkembalian" min="-2" pref="253" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="labelKembalian" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelJlhPembayaran" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTotalBelanja" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="fieldpembayaran" min="-2" pref="253" max="-2" attributes="0"/>
+                              <Component id="fieldtotalbelanja" min="-2" pref="253" max="-2" attributes="0"/>
+                              <Component id="fieldkembalian" min="-2" pref="253" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="94" max="32767" attributes="0"/>
                           <Component id="checkout_btn" min="-2" pref="108" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -149,9 +144,9 @@
                               <Component id="labelJlhPembayaran" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fieldkembalian" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelKembalian" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="fieldkembalian" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelKembalian" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                       </Group>

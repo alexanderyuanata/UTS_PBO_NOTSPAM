@@ -7,7 +7,7 @@ package aplikasikasir;
 public class AplikasiKasir {
 
     public static void main(String[] args) {
-       FrameAplikasi frame = new FrameAplikasi();
+       Login frame = new Login();
        frame.setVisible(true);
     }
     
