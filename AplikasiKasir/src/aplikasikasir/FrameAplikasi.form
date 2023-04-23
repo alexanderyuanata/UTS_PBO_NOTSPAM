@@ -86,8 +86,7 @@
                           </Group>
                       </Group>
                       <Component id="panel_tabel" pref="684" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="labelTotalBelanja" min="-2" max="-2" attributes="0"/>
@@ -105,6 +104,9 @@
                                   <Component id="fieldkembalian" min="-2" pref="253" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="checkout_btn" min="-2" pref="108" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -135,19 +137,25 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panel_tabel" min="-2" pref="342" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="fieldtotalbelanja" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelTotalBelanja" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="fieldpembayaran" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelJlhPembayaran" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="fieldkembalian" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelKembalian" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="fieldtotalbelanja" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelTotalBelanja" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="fieldpembayaran" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelJlhPembayaran" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="fieldkembalian" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelKembalian" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="checkout_btn" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -309,6 +317,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Kembalian"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="checkout_btn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Checkout"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkout_btnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

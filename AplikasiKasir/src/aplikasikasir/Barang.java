@@ -24,6 +24,9 @@ public class Barang {
     
     static ArrayList<Barang> daftarBarang = new ArrayList<Barang>();
     
+    public String getNama(){
+        return nama;
+    }
     
     public static void loadBarang(){
         Barang barang;

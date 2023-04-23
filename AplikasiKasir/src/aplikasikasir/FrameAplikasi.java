@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package aplikasikasir;
 
 import java.util.ArrayList;
@@ -10,12 +6,10 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-/**
- *
- * @author Alex
- */
+
 public class FrameAplikasi extends javax.swing.JFrame {
     ArrayList <Barang> daftarbarang;
+    ArrayList <Transaksi> historytransaksi = new ArrayList<>();
     
     TableModel model_tabel;
     
@@ -84,6 +78,7 @@ public class FrameAplikasi extends javax.swing.JFrame {
         fieldpembayaran = new javax.swing.JTextField();
         fieldkembalian = new javax.swing.JTextField();
         labelKembalian = new javax.swing.JLabel();
+        checkout_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -294,6 +289,13 @@ public class FrameAplikasi extends javax.swing.JFrame {
 
         labelKembalian.setText("Kembalian");
 
+        checkout_btn.setText("Checkout");
+        checkout_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkout_btnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout main_frameLayout = new javax.swing.GroupLayout(main_frame);
         main_frame.setLayout(main_frameLayout);
         main_frameLayout.setHorizontalGroup(
@@ -327,8 +329,7 @@ public class FrameAplikasi extends javax.swing.JFrame {
                                         .addComponent(jumlah_field, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))))
                     .addComponent(panel_tabel, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, main_frameLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(main_frameLayout.createSequentialGroup()
                         .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, main_frameLayout.createSequentialGroup()
                                 .addComponent(labelTotalBelanja)
@@ -341,7 +342,10 @@ public class FrameAplikasi extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, main_frameLayout.createSequentialGroup()
                                 .addComponent(labelKembalian)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldkembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(fieldkembalian, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(checkout_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         main_frameLayout.setVerticalGroup(
@@ -365,17 +369,21 @@ public class FrameAplikasi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_tabel, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldtotalbelanja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelTotalBelanja))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldpembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelJlhPembayaran))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldkembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelKembalian))
+                .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(main_frameLayout.createSequentialGroup()
+                        .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldtotalbelanja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelTotalBelanja))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldpembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelJlhPembayaran))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldkembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelKembalian))
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addComponent(checkout_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -498,6 +506,81 @@ public class FrameAplikasi extends javax.swing.JFrame {
         fieldpembayaran.setText(String.format("%,d", dibayarInput));
     }//GEN-LAST:event_fieldpembayaranKeyReleased
 
+    private void checkout_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkout_btnActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tabel_barang.getModel();
+        
+        //make sure kembalian is calculated
+        String totalBelanjaStr = fieldtotalbelanja.getText();
+        totalBelanjaStr = totalBelanjaStr.replace(",", "");
+        
+        String dibayarStr = fieldpembayaran.getText();
+        dibayarStr = dibayarStr.replace(",", "");
+        
+        float totalBelanja = Float.valueOf(totalBelanjaStr);
+        float dibayar = Float.valueOf(dibayarStr    );
+        
+        int kembalian = (int) (dibayar - totalBelanja);
+        
+        fieldkembalian.setText(String.format("Rp. %,d", kembalian));
+
+        //create transaction
+        //format kembalian
+        String kembalianStr = fieldkembalian.getText();
+        kembalianStr = kembalianStr.replace("Rp", "");
+        kembalianStr = kembalianStr.replace(".", "");
+        kembalianStr = kembalianStr.replace(" ", "");
+        kembalianStr = kembalianStr.replace(",", "");
+        System.out.println(kembalianStr);
+        
+        //format belanjaan
+        totalBelanjaStr = fieldtotalbelanja.getText();
+        totalBelanjaStr = totalBelanjaStr.replace(",", "");
+        System.out.println(totalBelanjaStr);
+        
+        //format bayar
+        dibayarStr = fieldpembayaran.getText();
+        dibayarStr = dibayarStr.replace(",", "");
+        System.out.println(dibayarStr);
+        
+        totalBelanja = Float.valueOf(totalBelanjaStr);
+        dibayar = Float.valueOf(dibayarStr);
+        kembalian = Integer.valueOf(kembalianStr);
+        
+        Transaksi new_transaksi = new Transaksi(totalBelanja, dibayar, kembalian);
+        
+        //insert data from rows into transaksi
+        System.out.println(jlhbelanja);
+        //temporary variables
+        Barang tempbarang;
+        int tempamount;
+        
+        for (int rows = 0; rows < jlhbelanja; rows++){
+            //store the temps and insert a new item into new_transaksi
+            tempbarang = new Barang();
+            
+            tempbarang.kode = model.getValueAt(rows, 1).toString();
+            tempbarang.nama = model.getValueAt(rows, 2).toString();
+            tempbarang.harga = Float.parseFloat(model.getValueAt(rows, 3).toString());
+            
+            tempamount = Integer.parseInt(model.getValueAt(rows, 4).toString());
+            
+            new_transaksi.addItem(tempbarang, tempamount);
+        }
+        
+        historytransaksi.add(new_transaksi);
+        
+        for (int i = 0; i < historytransaksi.size(); i++){
+            historytransaksi.get(i).displayTransaksi();
+        }
+        
+        //clear rows
+        model.setRowCount(0);
+        
+        //reset table
+        jlhbelanja = 0;
+        model.setRowCount(100);
+    }//GEN-LAST:event_checkout_btnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -534,6 +617,7 @@ public class FrameAplikasi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton checkout_btn;
     private javax.swing.JTextField fieldkembalian;
     private javax.swing.JTextField fieldpembayaran;
     private javax.swing.JTextField fieldtotalbelanja;
