@@ -1,6 +1,10 @@
 package aplikasikasir;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -576,6 +580,37 @@ public class FrameAplikasi extends javax.swing.JFrame {
         //reset table
         jlhbelanja = 0;
         model.setRowCount(100);
+        
+        //insert data to database
+        //if table is empty
+        if(model.getRowCount()==0)
+        {
+            JOptionPane.showMessageDialog(this, "Table is empty");
+        }
+        //if table not empty
+        else
+        {
+            try
+            {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/uts_pbo", "root", "");
+                    String query = "INSERT INTO transaksi(totalBelanja, dibayar, kembalian) values (?, ?, ?)";
+                    PreparedStatement prepstmt = conn.prepareStatement(query);
+                    prepstmt.setString(1, totalBelanjaStr);
+                    prepstmt.setString(2, dibayarStr);
+                    prepstmt.setString(3, kembalianStr);
+                    
+                    prepstmt.execute();
+                    
+                JOptionPane.showMessageDialog(this, "Data Inserted Successfully");
+                jlhbelanja = 0;
+                model.setRowCount(100);
+            }
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
+        }
     }//GEN-LAST:event_checkout_btnActionPerformed
 
     /**

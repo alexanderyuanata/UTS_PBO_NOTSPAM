@@ -1,13 +1,5 @@
 package aplikasikasir;
 
-import static aplikasikasir.DBConnector.DB_URL;
-import static aplikasikasir.DBConnector.JDBC_DRIVER;
-import static aplikasikasir.DBConnector.PASSWORD;
-import static aplikasikasir.DBConnector.USER;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -114,19 +106,4 @@ public class Transaksi {
         this.jumlah_dibayar = jumlah_dibayar;
         this.kembalian = kembalian;
     }
-    
-    public void tambahTransaksi() throws ClassNotFoundException, SQLException {
-                Class.forName(JDBC_DRIVER);
-                Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-                try {
-                    Statement stmt = DBConnector.conn.createStatement();
-                    String sql = "INSERT INTO transaksi (no, totalBelanja, dibayar, kembalian) "
-                            + "VALUES ('" + total_belanja + "', " + jumlah_dibayar + ", " + kembalian + ")";
-                    stmt.executeUpdate(sql);
-                    System.out.println("Transaksi berhasil ditambahkan.");
-                }
-                catch (Exception ex) {
-                    System.out.println(ex);
-                }
-            }
 }
