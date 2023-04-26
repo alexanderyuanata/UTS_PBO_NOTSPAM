@@ -640,7 +640,7 @@ public class FrameAplikasi extends javax.swing.JFrame {
                         statement.executeUpdate();
                     }
                                         
-                    JOptionPane.showMessageDialog(this, "Data Inserted Successfully");
+                    JOptionPane.showMessageDialog(this, "Pembayaran telah berhasil");
                     jlhbelanja = 0;
                     model.setRowCount(100);
                 }catch(Exception e) {
