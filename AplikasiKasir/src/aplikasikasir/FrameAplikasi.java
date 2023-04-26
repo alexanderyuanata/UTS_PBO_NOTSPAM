@@ -464,9 +464,11 @@ public class FrameAplikasi extends javax.swing.JFrame {
                 
                 sendStatus("Barang ditambah!");                
                 return;
+            } else {
+                JOptionPane.showMessageDialog(null, "Barang tidak ditemukan", "Message", JOptionPane.ERROR_MESSAGE);
             }
         }
-        sendStatus("Barang tidak ditemukan!");
+//        sendStatus("Barang tidak ditemukan!");
     }//GEN-LAST:event_kode_inputActionPerformed
 
     private void tabel_barangPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tabel_barangPropertyChange
@@ -489,10 +491,13 @@ public class FrameAplikasi extends javax.swing.JFrame {
         float totalBelanja = Float.valueOf(totalBelanjaStr);
         float dibayar = Float.valueOf(dibayarStr    );
         
-        int kembalian = (int) (dibayar - totalBelanja);
+        if (dibayar < totalBelanja) {
+            JOptionPane.showMessageDialog(null, "Uang anda tidak mencukupi", "Message", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int kembalian = (int) (dibayar - totalBelanja);
         
-        fieldkembalian.setText(String.format("Rp. %,d", kembalian));
-        
+            fieldkembalian.setText(String.format("Rp. %,d", kembalian));
+        }
     }//GEN-LAST:event_fieldpembayaranActionPerformed
 
     private void fieldpembayaranKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldpembayaranKeyTyped

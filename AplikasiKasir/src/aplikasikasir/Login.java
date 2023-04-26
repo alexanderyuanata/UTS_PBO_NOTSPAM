@@ -140,7 +140,7 @@ public class Login extends javax.swing.JFrame {
         else if (juser.getText().isEmpty()&& jpass.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Please Input Username and Password!");
         }
-        else if (juser.getText().equals("NOTSPAM")&& jpass.getText().equals("notspam12345")){
+        else if (juser.getText().equals("admin")&& jpass.getText().equals("admin")){
             FrameAplikasi frame = new FrameAplikasi();
             frame.setVisible(true);            
             dispose();
