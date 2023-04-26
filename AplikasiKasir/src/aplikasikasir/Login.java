@@ -5,6 +5,8 @@
 package aplikasikasir;
 
 import javax.swing.JOptionPane;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
