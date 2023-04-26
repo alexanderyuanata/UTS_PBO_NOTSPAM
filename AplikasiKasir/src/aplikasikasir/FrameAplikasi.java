@@ -1,6 +1,7 @@
 
 package aplikasikasir;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +15,10 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.JTable;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -663,12 +668,59 @@ public class FrameAplikasi extends javax.swing.JFrame {
                     System.out.println(e);
                 }
             }
-            TransaksiTable tabeldata = new TransaksiTable();
-            JScrollPane scrollPane = new JScrollPane (tabeldata);
-            JOptionPane.showMessageDialog(this, scrollPane, "Transaksi",JOptionPane.PLAIN_MESSAGE);
-            
-    }//GEN-LAST:event_checkout_btnActionPerformed
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uts_pbo", "root", "");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
 
+        // 2. Retrieve data from the database
+        String sql = "SELECT * FROM transaksi";
+        ResultSet rs = null;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // 3. Create a JTable and populate it with the data
+        JTable table = null;
+        try {
+            table = new JTable(buildTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameAplikasi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // 4. Display the JTable in a JOptionPane
+        JOptionPane.showMessageDialog(null, new JScrollPane(table));
+    }//GEN-LAST:event_checkout_btnActionPerformed
+public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+    ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();
+    
+    // Get the number of columns in the result set
+    int columnCount = metaData.getColumnCount();
+    
+    // Create a Vector of column names
+    Vector<String> columnNames = new Vector<>();
+    for (int column = 1; column <= columnCount; column++) {
+        columnNames.add(metaData.getColumnName(column));
+    }
+    
+    // Create a Vector of row data
+    Vector<Vector<Object>> data = new Vector<>();
+    while (rs.next()) {
+        Vector<Object> row = new Vector<>();
+        for (int column = 1; column <= columnCount; column++) {
+            row.add(rs.getObject(column));
+        }
+        data.add(row);
+    }
+    
+    return new DefaultTableModel(data, columnNames);
+}
     /**
      * @param args the command line arguments
      */
