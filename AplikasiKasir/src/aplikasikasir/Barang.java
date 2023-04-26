@@ -32,7 +32,7 @@ public class Barang {
         Barang barang;
         try {
             Statement stmt = DBConnector.conn.createStatement();
-            String sql = "SELECT * FROM BARANG";
+            String sql = "SELECT * FROM barang";
             ResultSet rs = stmt.executeQuery(sql);
             
             while (rs.next()){

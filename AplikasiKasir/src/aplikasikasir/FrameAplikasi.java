@@ -464,11 +464,10 @@ public class FrameAplikasi extends javax.swing.JFrame {
                 
                 sendStatus("Barang ditambah!");                
                 return;
-            } else {
-                JOptionPane.showMessageDialog(null, "Barang tidak ditemukan", "Message", JOptionPane.ERROR_MESSAGE);
             }
         }
 //        sendStatus("Barang tidak ditemukan!");
+          JOptionPane.showMessageDialog(null, "Barang tidak ditemukan", "Message", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_kode_inputActionPerformed
 
     private void tabel_barangPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tabel_barangPropertyChange
@@ -491,13 +490,18 @@ public class FrameAplikasi extends javax.swing.JFrame {
         float totalBelanja = Float.valueOf(totalBelanjaStr);
         float dibayar = Float.valueOf(dibayarStr    );
         
+        
         if (dibayar < totalBelanja) {
-            JOptionPane.showMessageDialog(null, "Uang anda tidak mencukupi", "Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Uang tidak mencukupi", "Message", JOptionPane.ERROR_MESSAGE);
+            return ;
         } else {
             int kembalian = (int) (dibayar - totalBelanja);
-        
-            fieldkembalian.setText(String.format("Rp. %,d", kembalian));
+             fieldkembalian.setText(String.format("Rp. %,d", kembalian));
         }
+        
+        
+        
+       
     }//GEN-LAST:event_fieldpembayaranActionPerformed
 
     private void fieldpembayaranKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldpembayaranKeyTyped
@@ -526,80 +530,83 @@ public class FrameAplikasi extends javax.swing.JFrame {
         float totalBelanja = Float.valueOf(totalBelanjaStr);
         float dibayar = Float.valueOf(dibayarStr    );
         
-        int kembalian = (int) (dibayar - totalBelanja);
+        int kembalian = 0;
         
-        fieldkembalian.setText(String.format("Rp. %,d", kembalian));
+        if(dibayar < totalBelanja) {
+            JOptionPane.showMessageDialog(null, "Uang tidak mencukupi", "Message", JOptionPane.ERROR_MESSAGE);
+            return ;
+        } else {
+            kembalian = (int) (dibayar - totalBelanja);
+            fieldkembalian.setText(String.format("Rp. %,d", kembalian));
+            System.out.println(kembalian);
+        }
+            
+            //create transaction
+            //format kembalian
+            String kembalianStr = fieldkembalian.getText();
+            kembalianStr = kembalianStr.replace("Rp", "");
+            kembalianStr = kembalianStr.replace(".", "");
+            kembalianStr = kembalianStr.replace(" ", "");
+            kembalianStr = kembalianStr.replace(",", "");
+            System.out.println(kembalianStr);
 
-        //create transaction
-        //format kembalian
-        String kembalianStr = fieldkembalian.getText();
-        kembalianStr = kembalianStr.replace("Rp", "");
-        kembalianStr = kembalianStr.replace(".", "");
-        kembalianStr = kembalianStr.replace(" ", "");
-        kembalianStr = kembalianStr.replace(",", "");
-        System.out.println(kembalianStr);
-        
-        //format belanjaan
-        totalBelanjaStr = fieldtotalbelanja.getText();
-        totalBelanjaStr = totalBelanjaStr.replace(",", "");
-        System.out.println(totalBelanjaStr);
-        
-        //format bayar
-        dibayarStr = fieldpembayaran.getText();
-        dibayarStr = dibayarStr.replace(",", "");
-        System.out.println(dibayarStr);
-        
-        totalBelanja = Float.valueOf(totalBelanjaStr);
-        dibayar = Float.valueOf(dibayarStr);
-        kembalian = Integer.valueOf(kembalianStr);
-        
-        Transaksi new_transaksi = new Transaksi(totalBelanja, dibayar, kembalian);
-        
-        //insert data from rows into transaksi
-        System.out.println(jlhbelanja);
-        //temporary variables
-        Barang tempbarang;
-        int tempamount;
-        
-        for (int rows = 0; rows < jlhbelanja; rows++){
-            //store the temps and insert a new item into new_transaksi
-            tempbarang = new Barang();
-            
-            tempbarang.kode = model.getValueAt(rows, 1).toString();
-            tempbarang.nama = model.getValueAt(rows, 2).toString();
-            tempbarang.harga = Float.parseFloat(model.getValueAt(rows, 3).toString());
-            
-            tempamount = Integer.parseInt(model.getValueAt(rows, 4).toString());
-            
-            new_transaksi.addItem(tempbarang, tempamount);
-        }
-        
-        historytransaksi.add(new_transaksi);
-        
-        for (int i = 0; i < historytransaksi.size(); i++){
-            historytransaksi.get(i).displayTransaksi();
-        }
-        
-        //clear rows
-        model.setRowCount(0);
-        
-        //reset table
-        jlhbelanja = 0;
-        model.setRowCount(100);
-        
-        //insert data to database
-        //if table is empty
-        if(model.getRowCount()==0)
-        {
-            JOptionPane.showMessageDialog(this, "Table is empty");
-        }
-        //if table not empty
-        else
-        {
-            try
+            //format belanjaan
+            totalBelanjaStr = fieldtotalbelanja.getText();
+            totalBelanjaStr = totalBelanjaStr.replace(",", "");
+            System.out.println(totalBelanjaStr);
+
+            //format bayar
+            dibayarStr = fieldpembayaran.getText();
+            dibayarStr = dibayarStr.replace(",", "");
+            System.out.println(dibayarStr);
+
+            totalBelanja = Float.valueOf(totalBelanjaStr);
+            dibayar = Float.valueOf(dibayarStr);
+            kembalian = Integer.valueOf(kembalianStr);
+
+            Transaksi new_transaksi = new Transaksi(totalBelanja, dibayar, kembalian);
+
+            //insert data from rows into transaksi
+            System.out.println(jlhbelanja);
+            //temporary variables
+            Barang tempbarang;
+            int tempamount;
+
+            for (int rows = 0; rows < jlhbelanja; rows++){
+                //store the temps and insert a new item into new_transaksi
+                tempbarang = new Barang();
+
+                tempbarang.kode = model.getValueAt(rows, 1).toString();
+                tempbarang.nama = model.getValueAt(rows, 2).toString();
+                tempbarang.harga = Float.parseFloat(model.getValueAt(rows, 3).toString());
+
+                tempamount = Integer.parseInt(model.getValueAt(rows, 4).toString());
+
+                new_transaksi.addItem(tempbarang, tempamount);
+            }
+
+            historytransaksi.add(new_transaksi);
+
+            for (int i = 0; i < historytransaksi.size(); i++){
+                historytransaksi.get(i).displayTransaksi();
+            }
+
+            //clear rows
+            model.setRowCount(0);
+
+            //reset table
+            jlhbelanja = 0;
+            model.setRowCount(100);
+
+            //insert data to database
+            //if table is empty
+            if(model.getRowCount()==0)
             {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/uts_pbo", "root", "");
+                JOptionPane.showMessageDialog(this, "Table is empty");
+            } else {
+                try {
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+                    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/uts_pbo", "root", "");
                     String query = "INSERT INTO transaksi(totalBelanja, dibayar, kembalian, waktu) values (?, ?, ?, ?)";
                     PreparedStatement prepstmt = conn.prepareStatement(query);
                     prepstmt.setString(1, Float.toString(new_transaksi.getTotalBelanja()));
@@ -614,25 +621,13 @@ public class FrameAplikasi extends javax.swing.JFrame {
                     numstat.execute();
                     System.out.println(numstat);
                     
-                    /*for(int i = 0; i < new_transaksi.getItemCount(); i++)
-                    {
-                        String s = "INSERT INTO item_in_transaksi (kode, jumlah, no_transaksi) values (?, ?, ?)";
-                        PreparedStatement ps = conn.prepareStatement(s);
-                        ps.setString(1, new_transaksi.getBarangAt(i).kode);
-                        ps.setString(2, Integer.toString(new_transaksi.getAmountAt(i)));
-                        ps.setString(3, );
-                        
-                        ps.execute();
-                    }*/
-                JOptionPane.showMessageDialog(this, "Data Inserted Successfully");
-                jlhbelanja = 0;
-                model.setRowCount(100);
+                    JOptionPane.showMessageDialog(this, "Data Inserted Successfully");
+                    jlhbelanja = 0;
+                    model.setRowCount(100);
+                }catch(Exception e) {
+                    System.out.println(e);
+                }
             }
-            catch(Exception e)
-            {
-                System.out.println(e);
-            }
-        }
     }//GEN-LAST:event_checkout_btnActionPerformed
 
     /**
