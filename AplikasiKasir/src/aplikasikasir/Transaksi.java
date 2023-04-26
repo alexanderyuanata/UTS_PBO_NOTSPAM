@@ -2,6 +2,7 @@ package aplikasikasir;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Transaksi {
     public class Item {
@@ -51,6 +52,10 @@ public class Transaksi {
     }
     
     //get
+    public int getItemCount(){
+        return barangdalam_transaksi.size();
+    }
+    
     public Item getItem(int index){
         return barangdalam_transaksi.get(index);
     }
@@ -75,8 +80,9 @@ public class Transaksi {
         return kembalian;
     }
     
-    public LocalDateTime getTime(){
-        return time;
+    public String getTime(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        return time.format(formatter);
     }
     
     //set

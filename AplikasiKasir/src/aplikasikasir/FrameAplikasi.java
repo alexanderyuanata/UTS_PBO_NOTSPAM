@@ -1,3 +1,4 @@
+
 package aplikasikasir;
 
 import java.sql.Connection;
@@ -594,14 +595,30 @@ public class FrameAplikasi extends javax.swing.JFrame {
             {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/uts_pbo", "root", "");
-                    String query = "INSERT INTO transaksi(totalBelanja, dibayar, kembalian) values (?, ?, ?)";
+                    String query = "INSERT INTO transaksi(totalBelanja, dibayar, kembalian, waktu) values (?, ?, ?, ?)";
                     PreparedStatement prepstmt = conn.prepareStatement(query);
-                    prepstmt.setString(1, totalBelanjaStr);
-                    prepstmt.setString(2, dibayarStr);
-                    prepstmt.setString(3, kembalianStr);
+                    prepstmt.setString(1, Float.toString(new_transaksi.getTotalBelanja()));
+                    prepstmt.setString(2, Float.toString(new_transaksi.getJumlahDibayar()));
+                    prepstmt.setString(3, Float.toString(new_transaksi.getKembalian()));
+                    prepstmt.setString(4, new_transaksi.getTime());
                     
                     prepstmt.execute();
                     
+                    String number = "SELECT no FROM transaksi where no = (SELECT LAST_INSERT_ID()";
+                    PreparedStatement numstat = conn.prepareStatement(number);
+                    numstat.execute();
+                    System.out.println(numstat);
+                    
+                    /*for(int i = 0; i < new_transaksi.getItemCount(); i++)
+                    {
+                        String s = "INSERT INTO item_in_transaksi (kode, jumlah, no_transaksi) values (?, ?, ?)";
+                        PreparedStatement ps = conn.prepareStatement(s);
+                        ps.setString(1, new_transaksi.getBarangAt(i).kode);
+                        ps.setString(2, Integer.toString(new_transaksi.getAmountAt(i)));
+                        ps.setString(3, );
+                        
+                        ps.execute();
+                    }*/
                 JOptionPane.showMessageDialog(this, "Data Inserted Successfully");
                 jlhbelanja = 0;
                 model.setRowCount(100);

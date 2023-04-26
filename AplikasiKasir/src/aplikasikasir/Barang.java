@@ -37,7 +37,7 @@ public class Barang {
             
             while (rs.next()){
                 barang = new Barang();
-                barang.kode = Integer.toString(rs.getInt("id"));
+                barang.kode = Integer.toString(rs.getInt("kode"));
                 barang.nama = rs.getString("nama");
                 barang.harga = rs.getFloat("harga");
                 
