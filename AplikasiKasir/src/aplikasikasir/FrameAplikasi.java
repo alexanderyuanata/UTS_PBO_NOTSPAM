@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.JTable;
 
 
 
@@ -487,19 +489,28 @@ public class FrameAplikasi extends javax.swing.JFrame {
         String totalBelanjaStr = fieldtotalbelanja.getText();
         totalBelanjaStr = totalBelanjaStr.replace(",", "");
         
+        float dibayar = 0;
+        
         String dibayarStr = fieldpembayaran.getText();
         dibayarStr = dibayarStr.replace(",", "");
-        
+
         float totalBelanja = Float.valueOf(totalBelanjaStr);
-        float dibayar = Float.valueOf(dibayarStr    );
         
+        try {
+            dibayar = Float.valueOf(dibayarStr);
+            // Code to execute if the input is a valid float value
+        } catch (NumberFormatException e) {
+            // Code to execute if the input is not a valid float value
+            JOptionPane.showMessageDialog(null, "Input hanya menerima angka");
+        }
         
         if (dibayar < totalBelanja) {
             JOptionPane.showMessageDialog(null, "Uang tidak mencukupi", "Message", JOptionPane.ERROR_MESSAGE);
-            return ;
+            return;
         } else {
             int kembalian = (int) (dibayar - totalBelanja);
              fieldkembalian.setText(String.format("Rp. %,d", kembalian));
+            
         }
         
         
@@ -527,23 +538,28 @@ public class FrameAplikasi extends javax.swing.JFrame {
         String totalBelanjaStr = fieldtotalbelanja.getText();
         totalBelanjaStr = totalBelanjaStr.replace(",", "");
         
+        float dibayar = 0;
+        
         String dibayarStr = fieldpembayaran.getText();
         dibayarStr = dibayarStr.replace(",", "");
-        
+
         float totalBelanja = Float.valueOf(totalBelanjaStr);
-        float dibayar = Float.valueOf(dibayarStr    );
+        
+        try {
+            dibayar = Float.valueOf(dibayarStr);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Input hanya menerima angka");
+        }
         
         int kembalian = 0;
         
-        if(dibayar < totalBelanja) {
+        if (dibayar < totalBelanja) {
             JOptionPane.showMessageDialog(null, "Uang tidak mencukupi", "Message", JOptionPane.ERROR_MESSAGE);
-            return ;
+            return;
         } else {
             kembalian = (int) (dibayar - totalBelanja);
-            fieldkembalian.setText(String.format("Rp. %,d", kembalian));
-            System.out.println(kembalian);
+             fieldkembalian.setText(String.format("Rp. %,d", kembalian));
         }
-            
             //create transaction
             //format kembalian
             String kembalianStr = fieldkembalian.getText();
@@ -647,6 +663,10 @@ public class FrameAplikasi extends javax.swing.JFrame {
                     System.out.println(e);
                 }
             }
+            TransaksiTable tabeldata = new TransaksiTable();
+            JScrollPane scrollPane = new JScrollPane (tabeldata);
+            JOptionPane.showMessageDialog(this, scrollPane, "Transaksi",JOptionPane.PLAIN_MESSAGE);
+            
     }//GEN-LAST:event_checkout_btnActionPerformed
 
     /**
