@@ -28,6 +28,10 @@ public class Barang {
         return nama;
     }
     
+    public String getKode(){
+        return kode;
+    }
+    
     public static void loadBarang(){
         Barang barang;
         try {

@@ -4,12 +4,15 @@ package aplikasikasir;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
 
 
 public class FrameAplikasi extends javax.swing.JFrame {
@@ -616,11 +619,27 @@ public class FrameAplikasi extends javax.swing.JFrame {
                     
                     prepstmt.execute();
                     
-                    String number = "SELECT no FROM transaksi where no = (SELECT LAST_INSERT_ID()";
+                    //get id of newest transaction                    
+                    String number = "SELECT MAX(`no`) AS last_id FROM `transaksi`";
                     PreparedStatement numstat = conn.prepareStatement(number);
                     numstat.execute();
-                    System.out.println(numstat);
+                    ResultSet last_id_set = numstat.getResultSet();
                     
+                    String lastid = null;
+                    if (last_id_set.next()){
+                        lastid = last_id_set.getString("last_id");
+                    }
+                    System.out.println(lastid);
+                    
+                    //insert into table item_in_transaksi
+                    PreparedStatement statement = conn.prepareStatement("INSERT INTO `item_in_transaksi` (`kode`, `jumlah`, `no_transaksi`) VALUES (?, ?, ?)");
+                    for (int i = 0; i < new_transaksi.getItemCount(); i++){
+                        statement.setString(1, new_transaksi.getBarangAt(i).getKode());
+                        statement.setString(2, Integer.toString(new_transaksi.getAmountAt(i)));
+                        statement.setString(3, lastid);
+                        statement.executeUpdate();
+                    }
+                                        
                     JOptionPane.showMessageDialog(this, "Data Inserted Successfully");
                     jlhbelanja = 0;
                     model.setRowCount(100);
