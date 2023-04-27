@@ -146,6 +146,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //cek kalau persis 1 entry username password ada di database
     private boolean authenticate(String username, String password) {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/uts_pbo", "root", "");
@@ -165,10 +166,13 @@ public class Login extends javax.swing.JFrame {
         }
     }
     
+    //sha256
     private String encryptSHA256(String input) {
         try {
+            //ubah string jadi byte menggunakan sha256
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+            //ubah byte jadi hexa
             StringBuilder hexString = new StringBuilder();
             for (byte b : hash) {
                 String hex = Integer.toHexString(0xff & b);
@@ -177,6 +181,7 @@ public class Login extends javax.swing.JFrame {
                 }
                 hexString.append(hex);
             }
+            //ubah jadi string, return
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
