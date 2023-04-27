@@ -5,8 +5,12 @@
 package aplikasikasir;
 
 import javax.swing.JOptionPane;
+//imports for sha256
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+//for mysql
+import java.sql.*;
 
 /**
  *
@@ -142,23 +146,67 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean authenticate(String username, String password) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/uts_pbo", "root", "");
+            Statement stmt = conn.createStatement();
+
+            ResultSet rs = stmt.executeQuery("SELECT COUNT(*) AS count FROM login WHERE username = '" + username + "' AND password_hash = '" + password + "';");
+            rs.next();
+            int count = rs.getInt("count");
+
+            rs.close();
+            stmt.close();
+            conn.close();
+
+            return (count == 1);
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
+    private String encryptSHA256(String input) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    //fungsi dipanggil jika mencoba login
     private void doLogin(){
-        // TODO add your handling code here:
+        //buka koneksi database
         DBConnector.initDBConnection();
+        
+        //jika username kosong tolak
         if (juser.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Please Input Username!");
         }
+        //jika password kosong tolak
         else if (jpass.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Please Input Password!");
         }
+        //jika keduanya kosong tolak
         else if (juser.getText().isEmpty()&& jpass.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Please Input Username and Password!");
         }
-        else if (juser.getText().equals("admin")&& jpass.getText().equals("admin")){
+        //jika username password benar
+        else if (authenticate(juser.getText(), encryptSHA256(jpass.getText()))){
             FrameAplikasi frame = new FrameAplikasi();
             frame.setVisible(true);            
             dispose();
         }
+        //jika username password salah
         else{
             JOptionPane.showMessageDialog(null, "Wrong Username or Password!", "Message", JOptionPane.ERROR_MESSAGE);
         }
