@@ -52,6 +52,18 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel3.setText("Password");
 
+        juser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                juserActionPerformed(evt);
+            }
+        });
+
+        jpass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpassActionPerformed(evt);
+            }
+        });
+
         blogin.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         blogin.setText("Login");
         blogin.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +142,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloginActionPerformed
+    private void doLogin(){
         // TODO add your handling code here:
         DBConnector.initDBConnection();
         if (juser.getText().isEmpty()){
@@ -150,6 +162,10 @@ public class Login extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Wrong Username or Password!", "Message", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void bloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bloginActionPerformed
+        doLogin();
     }//GEN-LAST:event_bloginActionPerformed
 
     private void jcshow_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcshow_passActionPerformed
@@ -166,6 +182,16 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_bexitActionPerformed
+
+    private void juserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_juserActionPerformed
+        // TODO add your handling code here:
+        jpass.requestFocus();
+    }//GEN-LAST:event_juserActionPerformed
+
+    private void jpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpassActionPerformed
+        // TODO add your handling code here:
+        doLogin();
+    }//GEN-LAST:event_jpassActionPerformed
 
     /**
      * @param args the command line arguments
