@@ -621,7 +621,9 @@ public class FrameAplikasi extends javax.swing.JFrame {
             //reset table
             jlhbelanja = 0;
             model.setRowCount(100);
-
+            
+            int lastid = 0;
+            
             //insert data to database
             //if table is empty
             if(model.getRowCount()==0)
@@ -645,10 +647,9 @@ public class FrameAplikasi extends javax.swing.JFrame {
                     PreparedStatement numstat = conn.prepareStatement(number);
                     numstat.execute();
                     ResultSet last_id_set = numstat.getResultSet();
-                    
-                    String lastid = null;
+                   
                     if (last_id_set.next()){
-                        lastid = last_id_set.getString("last_id");
+                        lastid = last_id_set.getInt("last_id");
                     }
                     System.out.println(lastid);
                     
@@ -657,7 +658,7 @@ public class FrameAplikasi extends javax.swing.JFrame {
                     for (int i = 0; i < new_transaksi.getItemCount(); i++){
                         statement.setString(1, new_transaksi.getBarangAt(i).getKode());
                         statement.setString(2, Integer.toString(new_transaksi.getAmountAt(i)));
-                        statement.setString(3, lastid);
+                        statement.setInt(3, lastid);
                         statement.executeUpdate();
                     }
                                         
@@ -677,10 +678,11 @@ public class FrameAplikasi extends javax.swing.JFrame {
         }
 
         // 2. Retrieve data from the database
-        String sql = "SELECT * FROM transaksi";
+        String sql = "SELECT * FROM transaksi where no = ?";
         ResultSet rs = null;
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, lastid);
             rs = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
