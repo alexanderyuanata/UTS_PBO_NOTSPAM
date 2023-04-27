@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+//class yang menyimpan satu transaksi dan data yang berkaitan
 public class Transaksi {
+    //item adalah pasangan objek barang dan jumlah yang dibeli
     public class Item {
         private Barang barang = new Barang();
         private int amount = 0;
@@ -30,13 +32,14 @@ public class Transaksi {
         }      
     }
     
+    //atribut transaksi: daftar barang dibeli, total belanja, jumlah dibayar, kembalian, waktu
     private ArrayList<Item> barangdalam_transaksi = new ArrayList<>();
     private float total_belanja;
     private float jumlah_dibayar;
     private float kembalian;
     private LocalDateTime time;
     
-    //constructor
+    //constructor, barang ditambah setelah objek dibuat
     public Transaksi(float harga_belanjaan, float dibayar, float kembalian){
         this.total_belanja = harga_belanjaan;
         this.jumlah_dibayar = dibayar;
@@ -44,7 +47,17 @@ public class Transaksi {
         this.time = LocalDateTime.now();
     }
     
+    //constructor jika sudah ada arraylist item
+    public Transaksi(float harga_belanjaan, float dibayar, float kembalian, ArrayList<Item> daftar_item){
+        this.total_belanja = harga_belanjaan;
+        this.jumlah_dibayar = dibayar;
+        this.kembalian = kembalian;
+        this.time = LocalDateTime.now();
+        this.barangdalam_transaksi = daftar_item;
+    }
+    
     //methods
+    //untuk debugging
     public void displayTransaksi(){
         for (Item barang : barangdalam_transaksi) {
             System.out.println("Barang: " + barang.getBarang().getNama() + " berjumlah " + barang.getAmount());

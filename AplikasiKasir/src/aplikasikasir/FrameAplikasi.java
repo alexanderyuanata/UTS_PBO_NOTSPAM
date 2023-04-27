@@ -94,6 +94,8 @@ public class FrameAplikasi extends javax.swing.JFrame {
         fieldkembalian = new javax.swing.JTextField();
         labelKembalian = new javax.swing.JLabel();
         checkout_btn = new javax.swing.JButton();
+        exit_btn = new javax.swing.JButton();
+        history_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -311,6 +313,20 @@ public class FrameAplikasi extends javax.swing.JFrame {
             }
         });
 
+        exit_btn.setText("Exit");
+        exit_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exit_btnActionPerformed(evt);
+            }
+        });
+
+        history_button.setText("History");
+        history_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                history_buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout main_frameLayout = new javax.swing.GroupLayout(main_frame);
         main_frame.setLayout(main_frameLayout);
         main_frameLayout.setHorizontalGroup(
@@ -324,7 +340,8 @@ public class FrameAplikasi extends javax.swing.JFrame {
                                 .addComponent(label_kode, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(kode_input, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(exit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(main_frameLayout.createSequentialGroup()
                                 .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(label_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,7 +359,8 @@ public class FrameAplikasi extends javax.swing.JFrame {
                                         .addComponent(label_jumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jumlah_field, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                        .addGap(168, 168, 168)
+                                        .addComponent(history_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                     .addComponent(panel_tabel)
                     .addGroup(main_frameLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
@@ -363,16 +381,18 @@ public class FrameAplikasi extends javax.swing.JFrame {
         main_frameLayout.setVerticalGroup(
             main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(main_frameLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(label_kode)
-                    .addComponent(kode_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(kode_input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exit_btn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nama_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label_nama)
                     .addComponent(jumlah_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_jumlah))
+                    .addComponent(label_jumlah)
+                    .addComponent(history_button))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(harga_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -394,7 +414,7 @@ public class FrameAplikasi extends javax.swing.JFrame {
                         .addGroup(main_frameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fieldkembalian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labelKembalian))
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(checkout_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -688,7 +708,7 @@ public class FrameAplikasi extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-        // 3. Create a JTable and populate it with the data
+        
         JTable table = null;
         try {
             table = new JTable(buildTableModel(rs));
@@ -696,22 +716,60 @@ public class FrameAplikasi extends javax.swing.JFrame {
             Logger.getLogger(FrameAplikasi.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // 4. Display the JTable in a JOptionPane
+        
         JOptionPane.showMessageDialog(null, new JScrollPane(table));
     }//GEN-LAST:event_checkout_btnActionPerformed
+
+    private void exit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exit_btnActionPerformed
+        // TODO add your handling code here:
+        Login window = new Login();
+        window.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_exit_btnActionPerformed
+
+    private void history_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_history_buttonActionPerformed
+        // TODO add your handling code here:
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/uts_pbo", "root", "");
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        
+        String sql = "SELECT * FROM transaksi";
+        ResultSet rs = null;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        
+        JTable table = null;
+        try {
+            table = new JTable(buildTableModel(rs));
+        } catch (SQLException ex) {
+            Logger.getLogger(FrameAplikasi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
+        JOptionPane.showMessageDialog(null, new JScrollPane(table));
+    }//GEN-LAST:event_history_buttonActionPerformed
 public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
     ResultSetMetaData metaData = (ResultSetMetaData) rs.getMetaData();
     
-    // Get the number of columns in the result set
+    
     int columnCount = metaData.getColumnCount();
     
-    // Create a Vector of column names
+    
     Vector<String> columnNames = new Vector<>();
     for (int column = 1; column <= columnCount; column++) {
         columnNames.add(metaData.getColumnName(column));
     }
-    
-    // Create a Vector of row data
+
     Vector<Vector<Object>> data = new Vector<>();
     while (rs.next()) {
         Vector<Object> row = new Vector<>();
@@ -760,10 +818,12 @@ public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLExceptio
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkout_btn;
+    private javax.swing.JButton exit_btn;
     private javax.swing.JTextField fieldkembalian;
     private javax.swing.JTextField fieldpembayaran;
     private javax.swing.JTextField fieldtotalbelanja;
     private javax.swing.JTextField harga_field;
+    private javax.swing.JButton history_button;
     private javax.swing.JTextField jumlah_field;
     private javax.swing.JTextField kode_input;
     private javax.swing.JLabel labelJlhPembayaran;
